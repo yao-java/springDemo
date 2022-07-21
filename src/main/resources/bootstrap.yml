@@ -1,0 +1,50 @@
+server:
+  port: 8111
+spring:
+
+  application:
+    name: springDemo
+  profiles:
+    active: ${profile.active}
+  main:
+    allow-bean-definition-overriding: true
+  #解决restful 404错误 spring.mvc.throw-exception-if-no-handler-found=true spring.resources.add-mappings=false
+  mvc:
+    throw-exception-if-no-handler-found: true
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: 9806a289-8892-4bff-9f17-8265343c91ba
+        extension-configs:
+          - dataId: redis.yaml
+          - dataId: mysql.yaml
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: 9806a289-8892-4bff-9f17-8265343c91ba
+logging:
+  file:
+    name: logs/${spring.application.name}/debug.log
+
+mybatis-plus:
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.test.model.entity
+  mapper-locations: classpath:mapper/*.xml
+
+mybatis:
+  configuration:
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+
+
+
+opencloud:
+  swagger2:
+    enabled: true
+    title: 在线接口文档
+    description: 文档
+
+
+
+
+
+
